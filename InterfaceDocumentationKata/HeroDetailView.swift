@@ -14,7 +14,34 @@ struct HeroDetailView: View {
     
     var body: some View {
         ScrollView {
-            Text("Hero detail.")
+            VStack {
+                HStack {
+                    Spacer()
+                    
+                    Button {
+                        dismiss()
+                    } label: {
+                        Image(systemName: "x.circle")
+                            .font(.title2)
+                    }
+                }
+                
+                Image(hero.imageName)
+                    .resizable()
+                    .scaledToFit()
+                    .clipShape(Circle())
+                    .frame(height: 260.0)
+                
+                Text(hero.name)
+                    .font(.largeTitle)
+                    .fontWeight(.semibold)
+                    .multilineTextAlignment(.center)
+                
+                Divider()
+                
+                Text(hero.about)
+            }
+            .padding()
         }
     }
 }

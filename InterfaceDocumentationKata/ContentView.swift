@@ -13,7 +13,36 @@ struct ContentView: View {
     @State private var heroShowing: DocumentationHero?
     
     var body: some View {
-        Text("List of Documentation Heros")
+        NavigationStack {
+            List(docHeros) { docHero in
+                HStack {
+                    Image(docHero.imageName)
+                        .resizable()
+                        .scaledToFit()
+                        .clipShape(Circle())
+                        .frame(height: 60.0)
+                    
+                    VStack(alignment: .leading) {
+                        Text(docHero.name)
+                            .font(.headline)
+                        Text(docHero.catchphrase)
+                            .foregroundColor(.secondary)
+                    }
+                    
+                    Spacer()
+                    
+                    Button {
+                        heroShowing = docHero
+                    } label: {
+                        Image(systemName: "questionmark.circle")
+                    }
+                }
+            }
+            .navigationTitle("Documentation Heros")
+            .sheet(item: $heroShowing) { hero in
+                HeroDetailView(hero: hero)
+            }
+        }
     }
 }
 
